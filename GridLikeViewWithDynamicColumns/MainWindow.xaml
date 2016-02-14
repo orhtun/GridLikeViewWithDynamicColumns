@@ -1,0 +1,96 @@
+﻿<Window x:Class="GridLikeViewWithDynamicColumns.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GridLikeViewWithDynamicColumns"
+        xmlns:viewModel="clr-namespace:GridLikeViewWithDynamicColumns.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="700">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <ItemsControl Margin="20,10,20,10"
+                          ItemsSource="{Binding Main.SuppliersForGrid, Source={StaticResource Locator}}"
+                          HorizontalAlignment="Left">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="{Binding  Main.SuppliersForGrid.Count, Source={StaticResource Locator}}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" />
+                            <ItemsControl ItemsSource="{Binding ItemsForGrid}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl Margin="20,10,20,10"
+                          ItemsSource="{Binding Main.SuppliersForGrid, Source={StaticResource Locator}}"
+                          HorizontalAlignment="Left">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Grid.IsSharedSizeScope="True"
+                                     Columns="{Binding  Main.SuppliersForGrid.Count, Source={StaticResource Locator}}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" Margin="5,5,5,5" Foreground="Red" />
+                            <ItemsControl ItemsSource="{Binding ItemsForGrid}">
+                                <ItemsControl.Resources>
+                                    <DataTemplate DataType="{x:Type viewModel:ItemViewModelFake}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition SharedSizeGroup="ItemRow" />
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="0" Text="{Binding Name}" Foreground="Blue" />
+                                        </Grid>
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type viewModel:ItemViewModel}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition SharedSizeGroup="ItemRow" />
+                                            </Grid.RowDefinitions>
+
+                                            <TextBox Grid.Row="0"
+                                                     Text="{Binding Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.Resources>
+                            </ItemsControl>
+
+                            <TextBlock Text="{Binding ItemsTotalCost}" Margin="5,5,5,5" Foreground="Green">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="0">
+                                                <Setter Property="Visibility" Value="Hidden" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</Window>
