@@ -3,6 +3,8 @@ using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GalaSoft.MvvmLight.Messaging;
+using GridLikeViewWithDynamicColumns.Model;
 
 namespace GridLikeViewWithDynamicColumns.ViewModel
 {
@@ -11,6 +13,10 @@ namespace GridLikeViewWithDynamicColumns.ViewModel
         public MainViewModel()
         {
             GenerateTestData();
+
+            Messenger.Default.Register<SupplierAddedMessage>(
+    this,
+    m => RaisePropertyChanged("SuppliersForGrid"));
         }
 
         private void GenerateTestData()

@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ItemCostUpdatedMessage.cs" />
+    <Compile Include="Model\SupplierAddedMessage.cs" />
     <Compile Include="ViewModel\ItemViewModel.cs" />
     <Compile Include="ViewModel\ItemViewModelFake.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

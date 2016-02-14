@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GridLikeViewWithDynamicColumns"
         xmlns:viewModel="clr-namespace:GridLikeViewWithDynamicColumns.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="700">
+        Title="MainWindow" Height="450" Width="900">
     <Grid>
         <StackPanel Orientation="Horizontal">
             <ItemsControl Margin="20,10,20,10"
@@ -91,6 +91,9 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <Button Margin="5,30,5,30" Command="{Binding SupplierListVM.InsertSupplierCommand, Source={StaticResource Locator}}" >Add Supplier</Button>
+            
         </StackPanel>
     </Grid>
 </Window>
