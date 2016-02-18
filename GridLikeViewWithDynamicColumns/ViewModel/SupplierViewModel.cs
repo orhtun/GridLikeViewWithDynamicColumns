@@ -52,7 +52,7 @@ namespace GridLikeViewWithDynamicColumns.ViewModel
 
         public void InsertItemCommandExecute()
         {
-            Items.Add(new ItemViewModel() { Name = string.Format("Item {0}", Items.Count) });
+            Items.Add(new ItemViewModel() { Name = $"Item {Items.Count}"});
         }
 
         public List<ItemViewModel> ItemsForGrid

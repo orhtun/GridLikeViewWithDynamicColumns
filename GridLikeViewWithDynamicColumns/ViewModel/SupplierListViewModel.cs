@@ -30,7 +30,7 @@ namespace GridLikeViewWithDynamicColumns.ViewModel
 
         public void InsertSupplierCommandExecute()
         {
-            var supplier = new SupplierViewModel() {Name = string.Format("Supplier {0}", Suppliers.Count+1)};
+            var supplier = new SupplierViewModel() {Name = $"Supplier {Suppliers.Count + 1}"};
 
             var r = new Random();
 
@@ -43,7 +43,7 @@ namespace GridLikeViewWithDynamicColumns.ViewModel
 
                     continue;
 
-                var item = new ItemViewModel() { Name = string.Format("Item {0}", j), Cost = r.Next(1, 100) };
+                var item = new ItemViewModel() { Name = $"Item {j}", Cost = r.Next(1, 100) };
 
                 supplier.Items.Add(item);
             }

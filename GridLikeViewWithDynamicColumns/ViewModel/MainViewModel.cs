@@ -26,7 +26,7 @@ namespace GridLikeViewWithDynamicColumns.ViewModel
 
             for (int i = 1; i < 4; i++)
             {
-                var supplier = new SupplierViewModel() { Name = string.Format("Supplier {0}", i) };
+                var supplier = new SupplierViewModel() { Name = $"Supplier {i}"};
                 var itemCnt = r.Next(5, 10);
                 var testSkipItem = r.Next(1, itemCnt);
 
@@ -36,7 +36,7 @@ namespace GridLikeViewWithDynamicColumns.ViewModel
 
                         continue;
 
-                    var item = new ItemViewModel() { Name = string.Format("Item {0}", j), Cost = r.Next(1, 100) };
+                    var item = new ItemViewModel() { Name = $"Item {j}", Cost = r.Next(1, 100) };
 
                     supplier.Items.Add(item);
                 }
@@ -52,22 +52,18 @@ namespace GridLikeViewWithDynamicColumns.ViewModel
                 //This calculation can be moved outside for better performance, do only when items change
                 var supplierList = ServiceLocator.Current.GetInstance<SupplierListViewModel>();
 
-                List<SupplierViewModel> Suppliers = new List<SupplierViewModel>();
-                SupplierViewModel rowHeaderSupplierVM = new SupplierViewModel();
-                rowHeaderSupplierVM.Name = "";
+                var suppliers = new List<SupplierViewModel>();
+                var rowHeaderSupplierVM = new SupplierViewModel {Name = ""};
 
                 foreach (var itemName in DistinctItemNames)
                 {
                     rowHeaderSupplierVM.Items.Add(new ItemViewModelFake() { Name = itemName });
                 }
 
-                Suppliers.Add(rowHeaderSupplierVM);
-                foreach (var supplier in supplierList.Suppliers)
-                {
-                    Suppliers.Add(supplier);
-                }
+                suppliers.Add(rowHeaderSupplierVM);
+                suppliers.AddRange(supplierList.Suppliers);
 
-                return Suppliers;
+                return suppliers;
             }
         }
 
